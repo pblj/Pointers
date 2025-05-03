@@ -4,6 +4,8 @@ using namespace std;
 void FillRand(int arr[], const int n);
 void Print(int arr[], const int n);
 
+int* push_back(int arr[],const int n, const int value);
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -14,28 +16,18 @@ void main()
 	FillRand(arr, n);
 	Print(arr, n);
 
+	for (int i = 0; i < n; i++)
+	{
+		cout << arr + i << "\t";
+	}
+
+	cout << endl;
+
 	int value;
 	cout << "введите добовляемое значение: "; cin >> value;
 
-	//1 создаем буферный массив нужного размера:
-	int* buffer = new int[n + 1];
-
-	//2 копируем все содержимое исходного массива в новый буферный:
-	for (int i = 0; i < n; i++)
-	{
-		buffer[i] = arr[i];
-	}
-
-	//3 удаляем исходный массив
-	delete[] arr;
-
-	//4 подменяем адрес в указателе arr адресом нового массива
-	arr = buffer;
-
-	//5 только после всего этого в конце массива появляется элемент, который можно сохранить добовляемое значение:
-	arr[n] = value;
-
-	//6 после того как в массив добавился элемент, количество его элементов увеличивается на 1:
+	arr = push_back(arr, n, value);
+	
 	n++;
 
 	//7 значение жобавлено, проверяем результат:
@@ -60,4 +52,23 @@ void Print(int arr[], const int n)
 		cout << arr[i] << "\t";
 	}
 	cout << endl;
+}
+
+int* push_back(int arr[], const int n, const int value)
+{
+	int* buffer = new int[n + 1];
+
+	for (int i = 0; i < n; i++)
+	{
+		buffer[i] = arr[i];
+	}
+
+	delete[] arr;
+
+	arr = buffer;
+
+	arr[n] = value;
+
+	return arr;
+ 
 }
