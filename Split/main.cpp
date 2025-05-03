@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 using namespace std;
 
 void FillRand(int arr[], const int n);
@@ -11,31 +11,34 @@ void main()
 	FillRand(arr, n);
 	Print(arr, n);
 
-	//1. считаем кол-во четных и нечетных элементов
-	// even - четный
-	//Odd - нечетный
+	//1. СЃС‡РёС‚Р°РµРј РєРѕР»-РІРѕ С‡РµС‚РЅС‹С… Рё РЅРµС‡РµС‚РЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
+	// even - С‡РµС‚РЅС‹Р№
+	//Odd - РЅРµС‡РµС‚РЅС‹Р№
 	int even_count = 0;
 	int odd_count = 0;
 	for (int i = 0; i < n; i++)
 	{
-		if (arr[i] % 2 == 0)even_count++;
-		else odd_count++;
+		//if (arr[i] % 2 == 0)even_count++;
+		//else odd_count++;
+		(arr[i] % 2 == 0 ? even_count : odd_count)++;
 	}
-	//2 выделяем память для четных и нечетных значений
+	//2 РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РґР»СЏ С‡РµС‚РЅС‹С… Рё РЅРµС‡РµС‚РЅС‹С… Р·РЅР°С‡РµРЅРёР№
 	int* even_arr = new int[even_count];
 	int* odd_arr = new int[odd_count];
 
-	//3 копируем четные и нечетные значения в соответствующие массивы
+	//3 РєРѕРїРёСЂСѓРµРј С‡РµС‚РЅС‹Рµ Рё РЅРµС‡РµС‚РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ РјР°СЃСЃРёРІС‹
 	for (int i = 0, j = 0, k = 0; i < n; i++)
 	{
-		if (arr[i] % 2 == 0)even_arr[j++] = arr[i];
-		else odd_arr[k++] = arr[i];
+		//if (arr[i] % 2 == 0)even_arr[j++] = arr[i];
+		//else odd_arr[k++] = arr[i];
+		(arr[i] % 2 == 0 ? even_arr[j++] : odd_arr[k++]) = arr[i];
+		
 	}
-	//4 выводим результат
+	//4 РІС‹РІРѕРґРёРј СЂРµР·СѓР»СЊС‚Р°С‚
 	Print(even_arr, even_count);
 	Print(odd_arr, odd_count);
 
-	//? удаляем память:
+	//? СѓРґР°Р»СЏРµРј РїР°РјСЏС‚СЊ:
 	delete[] odd_arr;
 	delete[] even_arr;
 }
