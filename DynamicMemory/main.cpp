@@ -4,7 +4,7 @@ using namespace std;
 void FillRand(int arr[], const int n);
 void Print(int arr[], const int n);
 
-int* push_back(int arr[],const int n, const int value);
+int* push_back(int arr[],int& n, const int value);
 
 void main()
 {
@@ -27,8 +27,6 @@ void main()
 	cout << "введите добовляемое значение: "; cin >> value;
 
 	arr = push_back(arr, n, value);
-	
-	n++;
 
 	//7 значение жобавлено, проверяем результат:
 	Print(arr, n);
@@ -54,7 +52,7 @@ void Print(int arr[], const int n)
 	cout << endl;
 }
 
-int* push_back(int arr[], const int n, const int value)
+int* push_back(int arr[], int& n, const int value)
 {
 	int* buffer = new int[n + 1];
 
@@ -68,6 +66,8 @@ int* push_back(int arr[], const int n, const int value)
 	arr = buffer;
 
 	arr[n] = value;
+
+	n++;
 
 	return arr;
  
