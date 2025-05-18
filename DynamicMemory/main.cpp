@@ -18,6 +18,8 @@ int* push_front(int arr[], int& n, const int value);
 int* insert(int arr[], int& n, const int value, int index);
 
 int* pop_back(int arr[], int& n);
+int* pop_fron(int arr[], int& n);
+int* erase(int arr[], int& n,const int index);
 
 int** push_row_back(int** arr, int& rows, const int cols);
 int** push_row_front(int** arr, int& rows, const int cols);
@@ -35,8 +37,8 @@ int** Allocate(const int rows);
 void Clear(int** arr);
 
 
-//#define DYNAMIC_MEMORY_1
-#define DYNAMIC_MEMORY_2
+#define DYNAMIC_MEMORY_1
+//#define DYNAMIC_MEMORY_2
 
 void main()
 {
@@ -49,13 +51,13 @@ void main()
 
 	FillRand(arr, n);
 	Print(arr, n);
-	cout << arr << endl;
-	cout << *arr << endl;
+	//cout << arr << endl;
+	/*cout << *arr << endl;
 	for (int i = 0; i < n; i++)
 	{
 		cout << *(arr + i) << "\t";
 	}
-	cout << endl;
+	cout << endl;*/
 
 	int value;
 	cout << "Введите добовляемое значение: "; cin >> value;
@@ -75,48 +77,42 @@ void main()
 	arr = insert(arr, n, value, index);
 	Print(arr, n);
 
-	Print(arr = pop_back(arr, n), n);
-	Print(arr = pop_back(arr, n), n);
-	Print(arr = pop_back(arr, n), n);
-	Print(arr = pop_back(arr, n), n);
-	Print(arr = pop_back(arr, n), n);
+
+	arr = pop_fron(arr, n);
 	Print(arr, n);
-	Print(arr, n);
-	Print(arr, n);
-	Print(arr, n);
-	Print(arr, n);
-	Print(arr, n);
-	Print(arr, n);
+
+	cout << "Введите позицию для удаления значения: "; cin >> index;
+	arr = erase(arr, n, index);
 	Print(arr, n);
 
 	delete[] arr;
 	//Memory leak  
 #endif // DYNAMIC_MEMORY_1
 
-	int rows;
-	int cols;
-	cout << "Введите количество строк: "; cin >> rows;
-	cout << "Введите количество колонок: "; cin >> cols;
+	//int rows;das
+	//int cols;
+	//cout << "Введите количество строк: "; cin >> rows;
+	//cout << "Введите количество колонок: "; cin >> cols;
 
-	int** arr = new int* [rows];
+	//int** arr = new int* [rows];
 
-	for (int i = 0; i < rows; i++)
-	{
-		arr[i] = new int[cols];
-	}
+	//for (int i = 0; i < rows; i++)
+	//{
+	//	arr[i] = new int[cols];
+	//}
 
-	FillRand(arr, rows, cols);
-	Print(arr, rows, cols);
+	//FillRand(arr, rows, cols);
+	//Print(arr, rows, cols);
 
-	arr = push_row_back(arr, rows, cols);
-	Print(arr, rows, cols);
+	//arr = push_row_back(arr, rows, cols);
+	//Print(arr, rows, cols);
 
-	for (int i = 0; i < rows; i++)
-	{
-		delete[] arr[i];
-	}
+	//for (int i = 0; i < rows; i++)
+	//{
+	//	delete[] arr[i];
+	//}
 
-	delete[] arr;
+	//delete[] arr;
 
 }
 
@@ -140,7 +136,7 @@ void FillRand(int** arr, const int rows, const int cols)
 }
 void Print(int arr[], const int n)
 {
-	cout << arr << ":\n";
+	//cout << arr << ":\n";
 	for (int i = 0; i < n; i++)
 	{
 		cout << arr[i] << "\t";
@@ -212,6 +208,33 @@ int* pop_back(int arr[], int& n)
 	int* buffer = new int[--n];
 	for (int i = 0; i < n; i++)buffer[i] = arr[i];
 	delete[] arr;
+	return buffer;
+}
+int* pop_fron(int arr[], int& n)
+{
+	int* buffer = new int[n - 1];
+	for (int i = 1; i < n; i++)
+	{
+		buffer[i-1] = arr[i];
+	}
+	delete[] arr; 
+	n--;
+	return buffer;
+}
+
+int* erase(int arr[], int& n, const int index)
+{
+	int* buffer = new int[n - 1];
+	for (int i = 0; i < index; i++)
+	{
+		buffer[i] = arr[i];
+	}
+	for (int i = index + 1; i < n; i++)
+	{
+		buffer[i - 1] = arr[i];
+	}
+	delete[] arr;
+	n--;
 	return buffer;
 }
 
