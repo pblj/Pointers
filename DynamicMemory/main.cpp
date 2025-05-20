@@ -1,9 +1,9 @@
 ﻿#include <iostream>
 using namespace std;
 
-//using std::cin;
-//using std::cout;
-//using std::endl;
+using std::cin;
+using std::cout;
+using std::endl;
 
 #define tab "\t"
 #define delimiter "\n---------------------------------------\n"
@@ -13,6 +13,9 @@ void FillRand(double arr[], const int n);
 void FillRand(int** arr, const int rows, const int cols);
 
 int FillElement(int divider);
+
+int** Allocate(const int rows,const int cols);
+template <typename T> void Clear(T** arr, int& rows);
 
 template <typename T>void Print(T arr[], const int n);
 template <typename T>void Print(T** arr, const int rows, const int cols);
@@ -90,15 +93,16 @@ void main()
 	cout << "Введите количество строк: "; cin >> rows;
 	cout << "Введите количество элементов строки: "; cin >> cols;
 
-	//1) Создаем массив указателей:
-	int** arr = new int* [rows];
+	////1) Создаем массив указателей:
+	//int** arr = new int* [rows];
 
-	//2) Выделяем память под строки двумерного динамического массива:
-	for (int i = 0; i < rows; i++)
-	{
-		arr[i] = new int[cols];
-	}
+	////2) Выделяем память под строки двумерного динамического массива:
+	//for (int i = 0; i < rows; i++)
+	//{
+	//	arr[i] = new int[cols];
+	//}
 
+	int** arr = Allocate(rows, cols);
 
 	FillRand(arr, rows, cols);
 	Print(arr, rows, cols);
@@ -132,14 +136,15 @@ void main()
 
 	cout << "Столбец добавлен" << endl;*/
 
-	//1) Сначала удаляем строки:
-	for (int i = 0; i < rows; i++)
-	{
-		delete[] arr[i];
-	}
+	Clear(arr, rows);
+	////1) Сначала удаляем строки:
+	//for (int i = 0; i < rows; i++)
+	//{
+	//	delete[] arr[i];
+	//}
 
-	//2) Удаляем массив указателей:
-	delete[] arr;
+	////2) Удаляем массив указателей:
+	//delete[] arr;
 #endif // 
 }
 
@@ -177,6 +182,28 @@ void FillRand(double** arr, const int rows, const int cols)
 	{
 		FillRand(arr[i], rows);
 	}
+}
+
+int** Allocate(const int rows, const int cols)
+{
+	int** arr = new int* [rows];
+
+	for (int i = 0; i < rows; i++)
+	{
+		arr[i] = new int[cols];
+	}
+	return arr;
+}
+
+template <typename T> void Clear(T** arr, int& rows)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] arr[i];
+	}
+
+	delete[] arr;
+	rows = 0;
 }
 
 template <typename T> void Print(T arr[], const int n)
